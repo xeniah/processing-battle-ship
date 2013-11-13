@@ -14,14 +14,14 @@ class Torpedo
   
   void move()
   {
-    centerX = (int)lerp(centerX, destinationX, 0.02);
-    centerY = (int)lerp(centerY, destinationY, 0.02);
+    centerX = (int)lerp(centerX, destinationX, 0.009);
+    centerY = (int)lerp(centerY, destinationY, 0.009);
     
   }
   
   void drawTorpedo()
   {
-    if(centerY < 101 )
+    if(centerY < height/3 + 1 )
     {
       amShooting = false;
     }

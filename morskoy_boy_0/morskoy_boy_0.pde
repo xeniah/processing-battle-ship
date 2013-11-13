@@ -19,6 +19,7 @@ void draw() {
   background(255);
   checkKeys();
   ship.drawShip(); 
+  target.drawTarget();
   for(int i = 0; i < 10; i++)
   {
     if(torpedoes[i] != null)
@@ -26,15 +27,15 @@ void draw() {
         torpedoes[i].drawTorpedo();
         Torpedo t = torpedoes[i];
 
-        if(t != null && t.amShooting && isCollidingCircleRectangle(t.centerX, t.centerY, 10, ship.centerX-50, ship.centerY+10, 100, 20))
+        if(t != null && t.amShooting && isCollidingCircleRectangle(t.centerX, t.centerY, 10, ship.centerX-ship.shipLength/2, ship.centerY+ship.shipHeight/2, ship.shipLength, ship.shipHeight))
         {
-          println("************************** COLLIDED *********************************");
+       //   println("************************** COLLIDED *********************************");
           ship.blowUp();
         }  
     }
   }
  
-  display();
+  //display();
 }
 
 

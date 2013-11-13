@@ -2,8 +2,9 @@ class Ship
 {
   
  int centerX = 0;
- int centerY = 100;;
- int shipLength;
+ int centerY = height/3;
+ int shipLength = 50;
+ int shipHeight = 15;
  int speed = 1;
  boolean blownUp = false;
   
@@ -35,7 +36,7 @@ class Ship
      fill(100);
    }
    rectMode(CORNERS);
-   rect(centerX-50,centerY+10,centerX+50,centerY-10);
+   rect(centerX-(shipLength/2),centerY+7,centerX+shipLength/2,centerY-7);
    //ellipse(centerX,100,100,20);
    move();
  } 
