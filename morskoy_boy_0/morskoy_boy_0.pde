@@ -4,7 +4,8 @@ int y = 100;
 int speed = 1;
 Target target;
 Ship ship;
-Torpedo lucky;
+Torpedo [] torpedoes = new Torpedo[10];
+int currentTorpedo = 0;
 
 // Setup does not change
 void setup() {
@@ -18,9 +19,12 @@ void draw() {
   background(255);
   checkKeys();
   ship.drawShip(); 
-  if(lucky != null)
+  for(int i = 0; i < 10; i++)
   {
-    lucky.drawTorpedo();
+    if(torpedoes[i] != null)
+    {
+        torpedoes[i].drawTorpedo();
+    }
   }
   
   display();
@@ -40,23 +44,29 @@ void display() {
   line(tx, y-5, tx, y+5);
 }
 
+void keyReleased() {
+   if (keyCode == UP){
+      println("***SHOOT***");
+     if(currentTorpedo < 10)
+       {
+          println("currentTorpedo: " + currentTorpedo);
+          torpedoes[currentTorpedo] = new Torpedo(target.centerX, target.centerY);
+          torpedoes[currentTorpedo].shoot();
+          currentTorpedo++;
+       }
+    }   
+}
+
 void checkKeys(){
   if (keyPressed) {
     if (keyCode == RIGHT) {
       target.moveRight();
-      println("right");
     }   
 
     if (keyCode == LEFT) {
       target.moveLeft();
-       println("left");
     }
     
-    if (keyPressed && key == ' '){
-   //   println("***SHOOT***");
-      lucky = new Torpedo(target.centerX, target.centerY);
-      lucky.shoot();
-    }   
     
   } 
 }

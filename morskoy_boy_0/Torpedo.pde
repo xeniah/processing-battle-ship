@@ -21,12 +21,10 @@ class Torpedo
   
   void drawTorpedo()
   {
- //   println("amShooting: " + amShooting);
-//    if(centerY < 101 )
-//    {
-//      amShooting = false;
-//      println("TORPEDO DISAPPEAR! NOT DRAWN, centerY: " + centerY);
-//    }
+    if(centerY < 101 )
+    {
+      amShooting = false;
+    }
     
     if(amShooting)
     {
@@ -43,6 +41,6 @@ class Torpedo
     amShooting = true;
     int centerX = width/2;
     int centerY = height;
-    println("centerX: " + centerX + " centerY: " + centerY);
+    //println("centerX: " + centerX + " centerY: " + centerY);
   }
 }

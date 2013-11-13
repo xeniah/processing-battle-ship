@@ -18,17 +18,7 @@ class Target
     dirState = "left";
     centerX -= speed;
   }
-
-  
-
-  void update()
-  {  
-    //println(dirState);
-
-
-  }
-
-  
+ 
   void checkState()
   {
     if (dirState == "right"){
