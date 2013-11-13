@@ -31,7 +31,7 @@ class Torpedo
    //    println("TORPEDO DRAWN");
         stroke(50);
         fill(66);
-        ellipse(centerX,centerY,10,20);
+        ellipse(centerX,centerY,10,10);
         move();
     }
   }
