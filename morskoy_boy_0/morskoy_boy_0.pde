@@ -17,7 +17,7 @@ void setup() {
   smooth();
   target = new Target();
   ship = new Ship();
-  blowUpSound = new Movie (this, "kaboom.wav");
+  blowUpSound = new Movie (this, "expl_aargh.wav");
 }
 
 void draw() {
@@ -36,8 +36,9 @@ void draw() {
         {
        //   println("************************** COLLIDED *********************************");
           ship.blowUp();
-        //  blowUpSound.stop();
+          blowUpSound.stop();
           blowUpSound.play();
+       //   ship = new Ship();
         }  
     }
   }
