@@ -21,5 +21,6 @@ class Ship
    stroke(100);
    fill(175);
    ellipse(centerX,100,100,20);
+   move();
  } 
 }

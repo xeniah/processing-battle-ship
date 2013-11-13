@@ -4,6 +4,7 @@ int y = 100;
 int speed = 1;
 Target t;
 Ship ship;
+Torpedo lucky;
 
 // Setup does not change
 void setup() {
@@ -11,24 +12,20 @@ void setup() {
   smooth();
   t = new Target();
   ship = new Ship();
+  lucky = new Torpedo();
 }
 
 void draw() {
   background(255);
   checkKeys();
-  ship.move();
   ship.drawShip(); 
-
+  lucky.drawTorpedo();
   display();
 }
 
 
 // A function to display the scene
 void display() {
-  // draw the 'ship'
-//  stroke(175);
-//  fill(175);
-//  ellipse(x,100,100,20);
   
   // draw the 'target'
   ellipseMode(CENTER);
@@ -52,9 +49,9 @@ void checkKeys(){
        println("left");
     }
     
-    if (keyCode == UP){
-      
-      println("jump");
+    if (key == ' '){
+      println("***SHOOT***");
+      lucky.shoot();
     }   
     
   } 
