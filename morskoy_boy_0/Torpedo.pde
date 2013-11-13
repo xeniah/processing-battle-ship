@@ -1,9 +1,9 @@
 class Torpedo
 {
-  int centerX = width/2;
-  int centerY = height;
-  int destinationX;
-  int destinationY;
+  float centerX = width/2;
+  float centerY = height;
+  float destinationX;
+  float destinationY;
   boolean amShooting = false;
   
   Torpedo(int destX, int destY)
@@ -14,9 +14,13 @@ class Torpedo
   
   void move()
   {
-    centerX = (int)lerp(centerX, destinationX, 0.009);
-    centerY = (int)lerp(centerY, destinationY, 0.009);
-    
+    float distance1 = dist(width/2, height, destinationX, destinationY);
+    float distance2 = dist(centerX, centerY, destinationX, destinationY);
+    println("Distance: " + (distance1 - distance2)/10.0);
+    float speedConst = 15.0;
+    float amt = (distance1 - distance2)/(float)(height*speedConst)+0.001;
+    centerX = lerp(centerX, destinationX, amt) ;
+    centerY = lerp(centerY, destinationY, amt); 
   }
   
   void drawTorpedo()
@@ -31,7 +35,7 @@ class Torpedo
    //    println("TORPEDO DRAWN");
         stroke(50);
         fill(66);
-        ellipse(centerX,centerY,10,10);
+        ellipse(centerX,centerY,10.0,10.0);
         move();
     }
   }
@@ -39,8 +43,8 @@ class Torpedo
   void shoot()
   {
     amShooting = true;
-    int centerX = width/2;
-    int centerY = height;
+    centerX = width/2;
+    centerY = height;
     //println("centerX: " + centerX + " centerY: " + centerY);
   }
 }

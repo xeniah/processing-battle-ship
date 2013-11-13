@@ -36,7 +36,7 @@ class Ship
      fill(100);
    }
    rectMode(CORNERS);
-   rect(centerX-(shipLength/2),centerY+7,centerX+shipLength/2,centerY-7);
+   rect(centerX-(shipLength/2),centerY+shipHeight/2,centerX+shipLength/2,centerY-shipHeight/2);
    //ellipse(centerX,100,100,20);
    move();
  } 
