@@ -3,19 +3,20 @@ class Target
   //position
   int centerX = 100;
   int centerY = 100; 
+  int speed = 2;
   
   String dirState = "right";
 
   void moveRight()
   {
     dirState = "right";
-    centerX += 1;
+    centerX += speed;
   }
 
   void moveLeft()
   {
     dirState = "left";
-    centerX -=1;
+    centerX -= speed;
   }
 
   

@@ -2,24 +2,27 @@
 int x = 0;
 int y = 100;
 int speed = 1;
-Target t;
+Target target;
 Ship ship;
 Torpedo lucky;
 
 // Setup does not change
 void setup() {
-  size(200,200);
+  size(600,200);
   smooth();
-  t = new Target();
+  target = new Target();
   ship = new Ship();
-  lucky = new Torpedo();
 }
 
 void draw() {
   background(255);
   checkKeys();
   ship.drawShip(); 
-  lucky.drawTorpedo();
+  if(lucky != null)
+  {
+    lucky.drawTorpedo();
+  }
+  
   display();
 }
 
@@ -31,7 +34,7 @@ void display() {
   ellipseMode(CENTER);
   stroke(0);
   noFill();
-  int tx = t.centerX;
+  int tx = target.centerX;
   ellipse(tx,100,35,35);
   line(tx-5, y, tx+5, y);
   line(tx, y-5, tx, y+5);
@@ -40,17 +43,18 @@ void display() {
 void checkKeys(){
   if (keyPressed) {
     if (keyCode == RIGHT) {
-      t.moveRight();
+      target.moveRight();
       println("right");
     }   
 
     if (keyCode == LEFT) {
-      t.moveLeft();
+      target.moveLeft();
        println("left");
     }
     
-    if (key == ' '){
-      println("***SHOOT***");
+    if (keyPressed && key == ' '){
+   //   println("***SHOOT***");
+      lucky = new Torpedo(target.centerX, target.centerY);
       lucky.shoot();
     }   
     
