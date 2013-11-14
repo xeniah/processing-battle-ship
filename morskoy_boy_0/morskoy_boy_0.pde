@@ -5,12 +5,14 @@ int x = 0;
 int y = 100;
 int speed = 1;
 boolean instructionMode = true;
+boolean hasPlayed = false;
 PFont f;
 int level = 120;
 
 Target target;
 Ship ship;
-Torpedo [] torpedoes = new Torpedo[10];
+int MAX_TORPEDOES = 10;
+Torpedo [] torpedoes = new Torpedo[MAX_TORPEDOES];
 int currentTorpedo = 0;
 int numShipsSunk = 0;
 
@@ -27,28 +29,11 @@ void setup() {
 }
 
 void draw() {
-      background(255);
-      checkKeys();
-      ship.drawShip(); 
-      target.drawTarget();
-      for(int i = 0; i < 10; i++)
-      {
-          if(torpedoes[i] != null)
-          {
-            torpedoes[i].drawTorpedo();
-            Torpedo t = torpedoes[i];
-  
-            if(t != null && t.amShooting && isCollidingCircleRectangle(t.centerX, t.centerY, 10, ship.centerX-ship.shipLength/2, ship.centerY-ship.shipHeight/2, ship.shipLength, ship.shipHeight))
-            {
-       //   println("************************** COLLIDED *********************************");
-              ship.blowUp();
-              numShipsSunk++;
-              blowUpSound.stop();
-              blowUpSound.play();
-       //   ship = new Ship();
-            }  
-        }
-      }
+     background(255);
+     checkKeys();
+     ship.drawShip(); 
+     target.drawTarget();
+     drawTorpedoes();
      drawLerp();
      
      if(instructionMode)
@@ -56,10 +41,14 @@ void draw() {
        instructionMode();
      }else
      {
-       drawScore();
+       if(currentTorpedo > 9)
+       {
+          instructionMode = true;
+       }else
+       {
+         drawScore();
+       } 
      }
-  
-
 }
 
 void drawLerp()
@@ -77,22 +66,29 @@ void drawLerp()
     }
 }
 
-//// A function to display the scene
-//void display() {
-//  
-//  // draw the 'target'
-//  ellipseMode(CENTER);
-//  stroke(0);
-//  noFill();
-//  int tx = target.centerX;
-//  ellipse(tx,100,35,35);
-//  line(tx-5, y, tx+5, y);
-//  line(tx, y-5, tx, y+5);
-//}
+void drawTorpedoes()
+{
+      for(int i = 0; i < 10; i++)
+      {
+          if(torpedoes[i] != null)
+          {
+            torpedoes[i].drawTorpedo();
+            Torpedo t = torpedoes[i];
+  
+            if(t != null && t.amShooting && isCollidingCircleRectangle(t.centerX, t.centerY, 10, ship.centerX-ship.shipLength/2, ship.centerY-ship.shipHeight/2, ship.shipLength, ship.shipHeight))
+            {
+       //   println("************************** COLLIDED *********************************");
+              ship.blowUp();
+              numShipsSunk++;
+              blowUpSound.stop();
+              blowUpSound.play();
+            }  
+        }
+      }
+}
 
 void keyReleased() {
    if (keyCode == UP){
-      println("***SHOOT***");
      if(currentTorpedo < 10)
        {
           println("currentTorpedo: " + currentTorpedo);
@@ -141,11 +137,15 @@ boolean isCollidingCircleRectangle(
 
 void keyPressed(){
   switch(key){
-  case 27:
+  case 27: // escape
     exit();
     break;
   case ' ':
     instructionMode = !instructionMode;
+    hasPlayed = true;
+    currentTorpedo = 0;
+    numShipsSunk = 0;
+    torpedoes = new Torpedo[10];
     break;
   default:
     break;
@@ -164,26 +164,30 @@ void drawScore()
  
   fill(40, 40, 40);
   textSize(9);
-  text("torpedoes: " + (10-currentTorpedo) + " hits: " + numShipsSunk, 590, 20);
-  
+  text("torpedoes: " + (10-currentTorpedo) + " hits: " + numShipsSunk, 590, 20); 
 }
 
-
 void instructionMode(){
+  rectMode(CORNERS);
   fill(0, 0, 0, 30);
-  rect(0, 0, width, height );
+  rect(0, 0, width, height);
   fill(0, 0, 0, 100);
   stroke(0, 0, 0, 70);
   strokeWeight(4);
-  rect(40, 20, width-80, height-40, 10);
+  rect(10, 20, width-10, height-40, 10);
   
   
   fill(255, 255, 255);
   textAlign(CENTER, TOP);
   int y = 40;
   textSize(21);
- 
-  text("Welcome to Sea Battle", 320, y);
+  if(!hasPlayed)
+  {
+    text("Welcome to Sea Battle", 320, y);
+  }else
+  {
+    text("Game Over! Final Score: " + numShipsSunk + " enemy vessels destroyed!", 320, y);
+  }
   y += 50;  
   textSize(11);
   text("press Space Bar to play", 320, y);
@@ -195,7 +199,6 @@ void instructionMode(){
   textAlign(RIGHT, BOTTOM);
   
   strokeWeight(1);
-  
 }
 
 
