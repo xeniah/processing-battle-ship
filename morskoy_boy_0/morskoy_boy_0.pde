@@ -6,11 +6,13 @@ int y = 100;
 int speed = 1;
 boolean instructionMode = true;
 PFont f;
+int level = 120;
 
 Target target;
 Ship ship;
 Torpedo [] torpedoes = new Torpedo[10];
 int currentTorpedo = 0;
+int numShipsSunk = 0;
 
 
 void setup() {
@@ -25,7 +27,6 @@ void setup() {
 }
 
 void draw() {
-      
       background(255);
       checkKeys();
       ship.drawShip(); 
@@ -41,6 +42,7 @@ void draw() {
             {
        //   println("************************** COLLIDED *********************************");
               ship.blowUp();
+              numShipsSunk++;
               blowUpSound.stop();
               blowUpSound.play();
        //   ship = new Ship();
@@ -52,6 +54,9 @@ void draw() {
      if(instructionMode)
      {
        instructionMode();
+     }else
+     {
+       drawScore();
      }
   
 
@@ -106,9 +111,7 @@ void checkKeys(){
 
     if (keyCode == LEFT) {
       target.moveLeft();
-    }
-    
-    
+    } 
   } 
 }
 
@@ -149,9 +152,24 @@ void keyPressed(){
   } 
 }
 
+void drawScore()
+{
+  fill(0, 0, 0, 30);
+  int topX = 490;
+  int topY = 14;
+  rectMode(CENTER);
+  stroke(0, 0, 0, 70);
+  strokeWeight(2);
+  rect(topX, topY, 210, 20, 3);
+ 
+  fill(40, 40, 40);
+  textSize(9);
+  text("torpedoes: " + (10-currentTorpedo) + " hits: " + numShipsSunk, 590, 20);
+  
+}
+
 
 void instructionMode(){
-
   fill(0, 0, 0, 30);
   rect(0, 0, width, height );
   fill(0, 0, 0, 100);
@@ -162,7 +180,6 @@ void instructionMode(){
   
   fill(255, 255, 255);
   textAlign(CENTER, TOP);
-  textSize(25);
   int y = 40;
   textSize(21);
  
