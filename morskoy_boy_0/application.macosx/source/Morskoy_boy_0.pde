@@ -52,7 +52,7 @@ void draw() {
        instructionMode();
      }else
      {
-       if(currentTorpedo > MAX_TORPEDOES)
+       if(currentTorpedo > MAX_TORPEDOES-1)
        {
           instructionMode = true;
        }else
@@ -90,6 +90,7 @@ void drawTorpedoes()
             {
        //   println("************************** COLLIDED *********************************");
               ship.blowUp();
+              t.hit();
               numShipsSunk++;
               au_player1 = getSound();
               au_player1.play();

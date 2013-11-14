@@ -5,7 +5,7 @@ class Ship
  int centerY = height/3;
  int shipLength = 100;
  int shipHeight = 50;
- int speed = 1;
+ int speed = int(random(4)+1);
  boolean blownUp = false;
   
  PImage shipImage = getShipImage();
@@ -24,6 +24,7 @@ class Ship
       blownUp = false;
       speed = 1;
       shipImage = getShipImage();
+      speed = int(random(2)+1);
     }
  }
 

@@ -17,7 +17,7 @@ class Torpedo
     float distance1 = dist(width/2, height, destinationX, destinationY);
     float distance2 = dist(centerX, centerY, destinationX, destinationY);
     //println("Distance: " + (distance1 - distance2)/10.0);
-    float speedConst = 25.0;
+    float speedConst = 30.0;
     float amt = (distance1 - distance2)/(float)(height*speedConst)+0.001;
     centerX = lerp(centerX, destinationX, amt) ;
     centerY = lerp(centerY, destinationY, amt); 
@@ -38,6 +38,11 @@ class Torpedo
         ellipse(centerX,centerY,10.0,10.0);
         move();
     }
+  }
+  
+  void hit()
+  {
+     amShooting = false;
   }
   
   void shoot()
