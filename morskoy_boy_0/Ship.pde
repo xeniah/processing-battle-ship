@@ -8,7 +8,7 @@ class Ship
  int speed = 1;
  boolean blownUp = false;
   
- PImage shipImage = loadImage("ship1.png"); 
+ PImage shipImage = loadImage("plane1.jpg"); 
   
  void move()
  {

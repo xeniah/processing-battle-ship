@@ -4,46 +4,57 @@ Movie blowUpSound;
 int x = 0;
 int y = 100;
 int speed = 1;
-
+boolean instructionMode = true;
+PFont f;
 
 Target target;
 Ship ship;
 Torpedo [] torpedoes = new Torpedo[10];
 int currentTorpedo = 0;
 
-// Setup does not change
+
 void setup() {
   size(600,200);
   smooth();
   target = new Target();
   ship = new Ship();
   blowUpSound = new Movie (this, "expl_aargh.wav");
+  
+  f = loadFont("PressStart2P-48.vlw");
+  textFont(f, 18);
 }
 
 void draw() {
-  background(255);
-  checkKeys();
-  ship.drawShip(); 
-  target.drawTarget();
-  for(int i = 0; i < 10; i++)
-  {
-    if(torpedoes[i] != null)
-    {
-        torpedoes[i].drawTorpedo();
-        Torpedo t = torpedoes[i];
-
-        if(t != null && t.amShooting && isCollidingCircleRectangle(t.centerX, t.centerY, 10, ship.centerX-ship.shipLength/2, ship.centerY-ship.shipHeight/2, ship.shipLength, ship.shipHeight))
-        {
+      
+      background(255);
+      checkKeys();
+      ship.drawShip(); 
+      target.drawTarget();
+      for(int i = 0; i < 10; i++)
+      {
+          if(torpedoes[i] != null)
+          {
+            torpedoes[i].drawTorpedo();
+            Torpedo t = torpedoes[i];
+  
+            if(t != null && t.amShooting && isCollidingCircleRectangle(t.centerX, t.centerY, 10, ship.centerX-ship.shipLength/2, ship.centerY-ship.shipHeight/2, ship.shipLength, ship.shipHeight))
+            {
        //   println("************************** COLLIDED *********************************");
-          ship.blowUp();
-          blowUpSound.stop();
-          blowUpSound.play();
+              ship.blowUp();
+              blowUpSound.stop();
+              blowUpSound.play();
        //   ship = new Ship();
-        }  
-    }
-  }
-   drawLerp();
-  //display();
+            }  
+        }
+      }
+     drawLerp();
+     
+     if(instructionMode)
+     {
+       instructionMode();
+     }
+  
+
 }
 
 void drawLerp()
@@ -124,4 +135,51 @@ boolean isCollidingCircleRectangle(
 
     return (cornerDistance_sq <= pow(radius,2));
 }
+
+void keyPressed(){
+  switch(key){
+  case 27:
+    exit();
+    break;
+  case ' ':
+    instructionMode = !instructionMode;
+    break;
+  default:
+    break;
+  } 
+}
+
+
+void instructionMode(){
+
+  fill(0, 0, 0, 30);
+  rect(0, 0, width, height );
+  fill(0, 0, 0, 100);
+  stroke(0, 0, 0, 70);
+  strokeWeight(4);
+  rect(40, 20, width-80, height-40, 10);
+  
+  
+  fill(255, 255, 255);
+  textAlign(CENTER, TOP);
+  textSize(25);
+  int y = 40;
+  textSize(21);
+ 
+  text("Welcome to Sea Battle", 320, y);
+  y += 50;  
+  textSize(11);
+  text("press Space Bar to play", 320, y);
+  y += 20;
+  text("press <- and -> to move the target window", 320, y);
+  y+= 20;
+  text("press Up to shoot a torpedo", 320, y);
+  fill(0, 255, 255);
+  textAlign(RIGHT, BOTTOM);
+  
+  strokeWeight(1);
+  
+}
+
+
 
