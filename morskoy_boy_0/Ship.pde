@@ -8,7 +8,7 @@ class Ship
  int speed = 1;
  boolean blownUp = false;
   
- PImage shipImage = loadImage("plane1.jpg"); 
+ PImage shipImage = getShipImage();
   
  void move()
  {
@@ -23,9 +23,14 @@ class Ship
       centerY = height/3;
       blownUp = false;
       speed = 1;
+      shipImage = getShipImage();
     }
-    
-  
+ }
+
+ PImage getShipImage()
+ {
+   int imageIndex = int(random(10));
+   return loadImage("ship"+imageIndex+".png");
  }
 
  void blowUp()

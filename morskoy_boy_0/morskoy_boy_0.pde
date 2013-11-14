@@ -34,7 +34,7 @@ void draw() {
      ship.drawShip(); 
      target.drawTarget();
      drawTorpedoes();
-     drawLerp();
+  //   drawLerp();
      
      if(instructionMode)
      {
@@ -80,8 +80,8 @@ void drawTorpedoes()
        //   println("************************** COLLIDED *********************************");
               ship.blowUp();
               numShipsSunk++;
-              blowUpSound.stop();
-              blowUpSound.play();
+          //    blowUpSound.stop();
+          //    blowUpSound.play();
             }  
         }
       }

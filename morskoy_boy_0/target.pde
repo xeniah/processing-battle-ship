@@ -23,10 +23,17 @@ class Target
   {
       ellipseMode(CENTER);
       stroke(0);
+      strokeWeight(2);
       noFill();
-      ellipse(centerX, centerY, 35,35);
-      line(centerX-5, centerY, centerX+5, centerY);
-      line(centerX, centerY-5, centerX, centerY+5);
+      ellipse(centerX, centerY, 36,36);
+      strokeWeight(1);
+//      line(centerX-5, centerY, centerX+5, centerY);
+      line(centerX, centerY+8, centerX, centerY+15);
+      line(centerX, centerY-8, centerX, centerY-15);
+      line(centerX+8, centerY, centerX+15, centerY);
+      line(centerX-8, centerY, centerX-15, centerY);
+      
+//      line(centerX, centerY-5, centerX, centerY+5);
   }
  
   void checkState()
